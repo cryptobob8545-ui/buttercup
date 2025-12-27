@@ -33,88 +33,91 @@ model_list:
       tpm: 30000
       rpm: 50
 
-  - model_name: openai-gpt-4o
-    litellm_params:
-      model: openai/gpt-4o
-      api_key: os.environ/OPENAI_API_KEY
-      tpm: 30000000
-      rpm: 10000
+  # OpenAI routes disabled for this setup; use Gemini instead.
+  # - model_name: openai-gpt-4o
+  #   litellm_params:
+  #     model: openai/gpt-4o
+  #     api_key: os.environ/OPENAI_API_KEY
+  #     tpm: 30000000
+  #     rpm: 10000
 
-  - model_name: openai-gpt-4o-mini
-    litellm_params:
-      model: openai/gpt-4o-mini
-      api_key: os.environ/OPENAI_API_KEY
-      tpm: 150000000
-      rpm: 30000
+  # - model_name: openai-gpt-4o-mini
+  #   litellm_params:
+  #     model: openai/gpt-4o-mini
+  #     api_key: os.environ/OPENAI_API_KEY
+  #     tpm: 150000000
+  #     rpm: 30000
 
-  - model_name: openai-o3-mini
-    litellm_params:
-      model: openai/o3-mini
-      api_key: os.environ/OPENAI_API_KEY
-      tpm: 150000000
-      rpm: 30000
+  # - model_name: openai-o3-mini
+  #   litellm_params:
+  #     model: openai/o3-mini
+  #     api_key: os.environ/OPENAI_API_KEY
+  #     tpm: 150000000
+  #     rpm: 30000
 
-  - model_name: openai-o1
-    litellm_params:
-      model: openai/o1
-      api_key: os.environ/OPENAI_API_KEY
-      tpm: 30000000
-      rpm: 10000
+  # - model_name: openai-o1
+  #   litellm_params:
+  #     model: openai/o1
+  #     api_key: os.environ/OPENAI_API_KEY
+  #     tpm: 30000000
+  #     rpm: 10000
 
-  - model_name: openai-o3
-    litellm_params:
-      model: openai/o3
-      api_key: os.environ/OPENAI_API_KEY
-      tpm: 30000000
-      rpm: 10000
+  # - model_name: openai-o3
+  #   litellm_params:
+  #     model: openai/o3
+  #     api_key: os.environ/OPENAI_API_KEY
+  #     tpm: 30000000
+  #     rpm: 10000
 
-  - model_name: openai-gpt-4.1
-    litellm_params:
-      model: openai/gpt-4.1
-      api_key: os.environ/OPENAI_API_KEY
-      tpm: 30000000
-      rpm: 10000
+  # - model_name: openai-gpt-4.1
+  #   litellm_params:
+  #     model: openai/gpt-4.1
+  #     api_key: os.environ/OPENAI_API_KEY
+  #     tpm: 30000000
+  #     rpm: 10000
 
-  - model_name: openai-gpt-4.1-mini
-    litellm_params:
-      model: openai/gpt-4.1-mini
-      api_key: os.environ/OPENAI_API_KEY
-      tpm: 150000000
-      rpm: 30000
+  # - model_name: openai-gpt-4.1-mini
+  #   litellm_params:
+  #     model: openai/gpt-4.1-mini
+  #     api_key: os.environ/OPENAI_API_KEY
+  #     tpm: 150000000
+  #     rpm: 30000
 
-  - model_name: openai-gpt-4.1-nano
-    litellm_params:
-      model: openai/gpt-4.1-nano
-      api_key: os.environ/OPENAI_API_KEY
-      tpm: 150000000
-      rpm: 30000
+  # - model_name: openai-gpt-4.1-nano
+  #   litellm_params:
+  #     model: openai/gpt-4.1-nano
+  #     api_key: os.environ/OPENAI_API_KEY
+  #     tpm: 150000000
+  #     rpm: 30000
 
-  - model_name: claude-3.5-sonnet
-    litellm_params:
-      model: anthropic/claude-3-5-sonnet-20241022
-      api_key: os.environ/ANTHROPIC_API_KEY
-      tpm: 400000
-      rpm: 4000
+  # Anthropic routes disabled for this setup; use Gemini instead.
+  # - model_name: claude-3.5-sonnet
+  #   litellm_params:
+  #     model: anthropic/claude-3-5-sonnet-20241022
+  #     api_key: os.environ/ANTHROPIC_API_KEY
+  #     tpm: 400000
+  #     rpm: 4000
 
-  - model_name: claude-3.7-sonnet
-    litellm_params:
-      model: anthropic/claude-3-7-sonnet-20250219
-      api_key: os.environ/ANTHROPIC_API_KEY
-      tpm: 125000
-      rpm: 6250
+  # - model_name: claude-3.7-sonnet
+  #   litellm_params:
+  #     model: anthropic/claude-3-7-sonnet-20250219
+  #     api_key: os.environ/ANTHROPIC_API_KEY
+  #     tpm: 125000
+  #     rpm: 6250
 
-  - model_name: claude-4-sonnet
-    litellm_params:
-      model: anthropic/claude-sonnet-4-20250514
-      api_key: os.environ/ANTHROPIC_API_KEY
-      tpm: 400000
+  # - model_name: claude-4-sonnet
+  #   litellm_params:
+  #     model: anthropic/claude-sonnet-4-20250514
+  #     api_key: os.environ/ANTHROPIC_API_KEY
+  #     tpm: 400000
 
-  - model_name: gemini-pro
+  - model_name: gemini-2.0-flash-lite
     litellm_params:
-      model: gemini/gemini-pro
+      model: gemini/gemini-2.0-flash-lite
       api_key: os.environ/GEMINI_API_KEY
-      tpm: 2000000
-      rpm: 150
+      tpm: 1000000
+      rpm: 30
+      rpd: 200
 
   - model_name: gemini-2.5-flash-exp
     litellm_params:
@@ -132,3 +135,7 @@ model_list:
 
 general_settings:
   master_key: os.environ/BUTTERCUP_LITELLM_KEY
+  # Verbose logging to see per-request model usage/latencies
+  log_level: DEBUG
+  set_verbose_logging: true
+  debug: true

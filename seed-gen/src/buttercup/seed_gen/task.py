@@ -1,6 +1,7 @@
 import logging
 import operator
 import re
+import time
 from collections.abc import Sequence
 from dataclasses import dataclass, field
 from enum import Enum
@@ -94,12 +95,11 @@ class Task:
 
     def __post_init__(self) -> None:
         fallbacks = [
+            ButtercupLLM.OPENAI_GPT_4_1,
             ButtercupLLM.CLAUDE_3_7_SONNET,
             ButtercupLLM.CLAUDE_3_5_SONNET,
-            ButtercupLLM.OPENAI_GPT_4_1,
-            ButtercupLLM.GEMINI_PRO,
         ]
-        self.llm = Task.get_llm(ButtercupLLM.CLAUDE_4_SONNET, fallbacks)
+        self.llm = Task.get_llm(ButtercupLLM.GEMINI_PRO, fallbacks)
         self.tools = [
             get_function_definition,
             get_type_definition,
@@ -255,7 +255,25 @@ class Task:
             ("system", system_prompt),
             ("human", user_prompt.format(**prompt_vars)),
         ]
-        res = self.llm_with_tools.invoke([*prompt, *state.messages])
+        res = None
+        last_err: Exception | None = None
+        for attempt in range(3):
+            try:
+                res = self.llm_with_tools.invoke([*prompt, *state.messages])
+                break
+            except Exception as err:  # noqa: BLE001
+                last_err = err
+                sleep_s = 2**attempt
+                logger.warning(
+                    "LLM context fetch failed (attempt %d/3): %s; retrying in %ds",
+                    attempt + 1,
+                    err,
+                    sleep_s,
+                )
+                time.sleep(sleep_s)
+        if res is None:
+            # Exhausted retries
+            raise last_err  # type: ignore[misc]
         cmd: Command = Command(
             update={
                 "messages": [res],

@@ -374,12 +374,13 @@ litellm-helm:
           api_key: os.environ/ANTHROPIC_API_KEY
           tpm: 1775000
 
-      - model_name: gemini-pro	
-        litellm_params:
-          model: gemini/gemini-pro
-          api_key: os.environ/GEMINI_API_KEY
-          tpm: 2000000
-          rpm: 150
+      - model_name: gemini-2.0-flash-lite	
+        litellm_params:	
+          model: gemini/gemini-2.0-flash-lite	
+          api_key: os.environ/GEMINI_API_KEY	
+          tpm: 1000000	
+          rpm: 30	
+          rpd: 200	
 
       - model_name: gemini-2.5-flash-exp
         litellm_params:

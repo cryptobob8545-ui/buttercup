@@ -94,7 +94,9 @@ def _find_source_files(
             str(container_src_dir),
         ]
 
-        result = subprocess.run(cmd, capture_output=True, text=True, check=True, timeout=60)
+        # Allow plenty of time on slower machines / large repos (30 minutes).
+        # Give slow builds more breathing room (was 30 min). Bump to 60 min.
+        result = subprocess.run(cmd, capture_output=True, text=True, check=True, timeout=3600)
     except subprocess.CalledProcessError as e:
         if e.returncode == 1:  # No matches found
             return []

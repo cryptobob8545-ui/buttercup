@@ -138,7 +138,7 @@ class RootCauseAgent(PatcherAgentBase):
                 model_name=m.value,
                 **kwargs,
             )
-            for m in [ButtercupLLM.CLAUDE_3_7_SONNET, ButtercupLLM.GEMINI_PRO]
+            for m in [ButtercupLLM.GEMINI_PRO, ButtercupLLM.CLAUDE_3_7_SONNET]
         ]
         self.llm = default_llm.with_fallbacks(fallback_llms)
 

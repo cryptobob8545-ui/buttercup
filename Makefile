@@ -126,7 +126,7 @@ download-artifacts:
 	./scripts/download_artifacts.sh
 
 # Testing targets
-send-integration-task:
+	send-integration-task:
 	@echo "Running integration test task..."
 	@if ! kubectl get namespace $${BUTTERCUP_NAMESPACE:-crs} >/dev/null 2>&1; then \
 		echo "Error: CRS namespace not found. Deploy first with 'make deploy'."; \
@@ -138,7 +138,7 @@ send-integration-task:
 	./orchestrator/scripts/task_integration_test.sh; \
 	kill $$PORT_FORWARD_PID 2>/dev/null || true
 
-send-libpng-task:
+	send-libpng-task:
 	@echo "Running libpng task..."
 	@if ! kubectl get namespace $${BUTTERCUP_NAMESPACE:-crs} >/dev/null 2>&1; then \
 		echo "Error: CRS namespace not found. Deploy first with 'make deploy'."; \
@@ -149,6 +149,18 @@ send-libpng-task:
 	sleep 3; \
 	./orchestrator/scripts/task_crs.sh; \
 	kill $$PORT_FORWARD_PID 2>/dev/null || true
+
+send-protobuf-task:
+	@echo "Running protobuf task..."
+	@if ! kubectl get namespace $${BUTTERCUP_NAMESPACE:-crs} >/dev/null 2>&1; then \
+		echo "Error: CRS namespace not found. Deploy first with 'make deploy'."; \
+		exit 1; \
+	fi
+	kubectl port-forward -n $${BUTTERCUP_NAMESPACE:-crs} service/buttercup-ui 31323:1323 &
+	@sleep 3
+	./orchestrator/scripts/task_protobuf.sh
+	pkill -f "kubectl port-forward" || true
+	exit 0
 
 # Development targets
 lint:
